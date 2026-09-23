@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+// In dev: VITE_API_URL is not set, Vite proxy handles /api → localhost:4000
+// In prod: VITE_API_URL is the Railway server URL
+const baseURL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : '/api';
+
 const api = axios.create({
-  baseURL: '/api',          // proxied to localhost:4000 by Vite
+  baseURL,
   withCredentials: true,
 });
 
