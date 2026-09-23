@@ -1,9 +1,10 @@
 # RealTimeChat
+# RealTimeChat
 
 A full-stack real-time chat application — 1-on-1 messaging, group chat, presence indicators, typing indicators, read receipts, and file sharing. Built with the PERN stack + Socket.IO + Redis.
 
-> **Live demo:** _coming soon_  
-> **GitHub:** _this repo_
+> **Live demo:** _add after deploy_
+> **GitHub:** https://github.com/Manthanshah1406/realtimechat
 
 ---
 
@@ -270,6 +271,25 @@ realtimechat/
 - **Zod validation** — schema-first, coerces + sanitises input before controllers see it
 - **Transaction safety** — conversation creation uses `BEGIN/COMMIT/ROLLBACK`
 - **REST vs WebSocket** — REST for CRUD/history, sockets only for real-time events
+
+---
+
+## Future Features
+
+These are planned improvements beyond the current MVP:
+
+| Feature | Description |
+|---------|-------------|
+| 📱 Push notifications | Browser/mobile push when a message arrives and the app is in background |
+| 🔍 Message search | Full-text search across conversation history |
+| 😀 Emoji reactions | React to messages with emoji (like Slack/WhatsApp) |
+| ✏️ Edit & delete messages | Edit sent messages, delete for everyone |
+| 📞 Voice / video calls | WebRTC-based peer-to-peer calling |
+| 👤 User profiles | Avatar upload, bio, status message |
+| 🔔 Notification preferences | Per-conversation mute settings |
+| 📌 Pinned messages | Pin important messages in a group |
+| 🌙 Dark mode | System-aware dark/light theme toggle |
+| 📲 Mobile app | React Native client using the same backend |
 
 ---
 
