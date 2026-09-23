@@ -1,5 +1,4 @@
 # RealTimeChat
-# RealTimeChat
 
 A full-stack real-time chat application — 1-on-1 messaging, group chat, presence indicators, typing indicators, read receipts, and file sharing. Built with the PERN stack + Socket.IO + Redis.
 
