@@ -2,7 +2,7 @@
 
 A full-stack real-time chat application — 1-on-1 messaging, group chat, presence indicators, typing indicators, read receipts, and file sharing. Built with the PERN stack + Socket.IO + Redis.
 
-> **Live demo:** _add after deploy_
+> **Live demo:** realtimechat-khaki.vercel.app
 > **GitHub:** https://github.com/Manthanshah1406/realtimechat
 
 ---
