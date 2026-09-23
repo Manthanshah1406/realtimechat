@@ -1,12 +1,22 @@
+import { useEffect, useState } from 'react';
 import { useSocket } from '../../context/SocketContext';
 
 /**
- * Sticky top banner shown when the socket drops or is reconnecting.
+ * Sticky top banner shown only when an active socket connection drops or is reconnecting.
+ * Does not display on initial startup/page load.
  */
 export default function ConnectionBanner() {
   const { connected, reconnecting } = useSocket();
+  const [hasConnectedOnce, setHasConnectedOnce] = useState(false);
 
-  if (connected) return null;
+  useEffect(() => {
+    if (connected) {
+      setHasConnectedOnce(true);
+    }
+  }, [connected]);
+
+  // Don't show anything during initial load / before first successful connection
+  if (!hasConnectedOnce || connected) return null;
 
   return (
     <div
@@ -20,3 +30,4 @@ export default function ConnectionBanner() {
     </div>
   );
 }
+
