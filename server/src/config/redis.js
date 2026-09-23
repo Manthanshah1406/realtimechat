@@ -1,18 +1,32 @@
 const Redis = require('ioredis');
 
-// Two separate clients required by @socket.io/redis-adapter
-// (one for publishing, one for subscribing)
 let pubClient;
 let subClient;
 
+function createRedisClient() {
+  const url = process.env.REDIS_URL;
+
+  // Upstash uses rediss:// (TLS) — ioredis needs tls option explicitly
+  const isTLS = url?.startsWith('rediss://');
+
+  return new Redis(url, {
+    tls: isTLS ? { rejectUnauthorized: false } : undefined,
+    maxRetriesPerRequest: null,
+    enableReadyCheck: false,
+    retryStrategy: (times) => {
+      if (times > 5) return null; // stop retrying after 5 attempts
+      return Math.min(times * 500, 2000);
+    },
+  });
+}
+
 async function connectRedis() {
-  pubClient = new Redis(process.env.REDIS_URL);
-  subClient = new Redis(process.env.REDIS_URL);
+  pubClient = createRedisClient();
+  subClient = createRedisClient();
 
-  pubClient.on('error', (err) => console.error('Redis pub error:', err));
-  subClient.on('error', (err) => console.error('Redis sub error:', err));
+  pubClient.on('error', (err) => console.error('Redis pub error:', err.message));
+  subClient.on('error', (err) => console.error('Redis sub error:', err.message));
 
-  // ioredis connects automatically — verify with a ping
   await pubClient.ping();
   console.log('✅ Redis connected');
 }
