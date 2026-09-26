@@ -6,8 +6,12 @@ A full-stack real-time chat application — 1-on-1 messaging, group chat, presen
 > **GitHub:** https://github.com/Manthanshah1406/realtimechat
 
 ---
+### 🚧 Project Status: **Work in Progress (Under Active Development)** 🚧
+> **Note:** This project is currently under active development. Some features are actively being built, refined, and tested. New updates and enhancements are added regularly!
 
-## Features
+---
+
+## Current Features
 
 | | Feature |
 |-|---------|
