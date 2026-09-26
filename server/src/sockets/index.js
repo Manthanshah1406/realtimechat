@@ -24,9 +24,32 @@ async function joinConversationRooms(socket) {
 }
 
 function initSocketIO(httpServer) {
+  const clientOriginEnv = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+  const allowedOrigins = clientOriginEnv
+    .split(',')
+    .map((o) => o.trim().replace(/\/+$/, ''))
+    .filter(Boolean);
+
+  function isAllowedOrigin(origin) {
+    if (!origin) return true;
+    const normalized = origin.replace(/\/+$/, '');
+    if (clientOriginEnv === '*' || allowedOrigins.includes(normalized)) {
+      return true;
+    }
+    if (/^https:\/\/[a-zA-Z0-9-_.]+\.vercel\.app$/.test(normalized)) {
+      return true;
+    }
+    return false;
+  }
+
   io = new Server(httpServer, {
     cors: {
-      origin: process.env.CLIENT_ORIGIN,
+      origin: (origin, callback) => {
+        if (isAllowedOrigin(origin)) {
+          return callback(null, true);
+        }
+        return callback(new Error(`Socket CORS blocked for origin: ${origin}`));
+      },
       credentials: true,
     },
     adapter: createAdapter(getPubClient(), getSubClient()),
